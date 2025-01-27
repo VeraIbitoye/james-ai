@@ -1,101 +1,222 @@
-import Image from "next/image";
+"use client";
+
+import React, { useState } from "react";
+import { motion } from "framer-motion";
 
 export default function Home() {
-  return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-semibold">
-              src/app/page.js
-            </code>
-            .
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
+  const [menuOpen, setMenuOpen] = useState(false);
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+  const container = {
+    hidden: { opacity: 0 },
+    show: {
+      opacity: 1,
+      transition: {
+        delayChildren: 0.5,
+        staggerChildren: 0.2,
+      },
+    },
+  };
+
+  const item = {
+    hidden: { opacity: 0, y: 50 },
+    show: { opacity: 1, y: 0, transition: { duration: 0.8, ease: "easeOut" } },
+  };
+
+  return (
+    <div className="min-h-screen bg-gray-900 text-gray-100 font-sans">
+      {/* Navbar */}
+      <motion.nav
+        initial={{ opacity: 0, y: -50 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8, ease: "easeOut" }}
+        className="bg-gradient-to-r from-blue-700 to-gray-800 text-white fixed w-full z-20 shadow-lg top-0 left-0"
+      >
+        <div className="container mx-auto flex items-center justify-between px-6 py-4">
+          <h1 className="text-2xl font-bold tracking-wide">James</h1>
+          <button
+            className="md:hidden focus:outline-none"
+            onClick={() => setMenuOpen(!menuOpen)}
           >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:min-w-44"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              strokeWidth={2}
+              stroke="currentColor"
+              className="w-6 h-6"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M4 6h16M4 12h16m-7 6h7"
+              />
+            </svg>
+          </button>
+          <ul
+            className={`absolute md:static top-16 left-0 w-full md:w-auto bg-gradient-to-r from-blue-700 to-gray-800 md:bg-transparent md:flex md:space-x-6 text-center md:text-left transition-all duration-300 ${
+              menuOpen ? "block" : "hidden"
+            }`}
           >
-            Read our docs
-          </a>
+            {["Home", "About Me", "Contact", "Assignment"].map((link) => (
+              <li key={link} className="md:py-0 py-2">
+                <a
+                  href={`#${link.replace(" ", "").toLowerCase()}`}
+                  className="block text-white hover:text-yellow-400 transition-colors"
+                  onClick={() => setMenuOpen(false)}
+                >
+                  {link}
+                </a>
+              </li>
+            ))}
+          </ul>
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
+      </motion.nav>
+
+      {/* Sections */}
+      <div className="mt-24">
+        {/* Home Section */}
+        <motion.section
+          id="home"
+          initial={{ opacity: 0, scale: 0.9 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 1, ease: "easeOut" }}
+          className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-r from-gray-800 to-blue-800 text-white text-center px-4"
         >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
+          <motion.img
+            src="/my-picture.jpg"
+            alt="My Picture"
+            className="w-72 h-72 rounded-full border-4 border-yellow-400 shadow-2xl object-cover"
+            whileHover={{ scale: 1.1, rotate: 5 }}
           />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
+
+          <motion.h1
+            initial={{ opacity: 0, y: -30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1, ease: "easeOut" }}
+            className="mt-6 text-5xl font-extrabold"
+          >
+            Hello, I'm{" "}
+            <span className="text-yellow-400">Omoregie James</span>
+          </motion.h1>
+          <motion.p
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1, delay: 0.3, ease: "easeOut" }}
+            className="mt-4 text-lg max-w-3xl"
+          >
+            Welcome to my portfolio!
+          </motion.p>
+        </motion.section>
+
+        {/* About Me Section */}
+        <motion.section
+          id="aboutme"
+          variants={container}
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true }}
+          className="flex flex-col items-center justify-center min-h-screen bg-gray-900 text-center px-4 py-12"
         >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
+          <motion.h2 variants={item} className="text-4xl font-bold text-yellow-400">
+            About Me
+          </motion.h2>
+          <motion.p
+            variants={item}
+            className="mt-6 text-lg text-gray-300 max-w-4xl"
+          > 
+            Hi, I’m Omoregie James, a Computer Science student at Yaba College of 
+            Technology (YABATECH) with matriculation number F/HD/23/3210125.
+             I’m passionate about technology, problem-solving, and leveraging 
+             innovative solutions to make life easier. My academic journey is 
+             focused on developing skills in programming, software development,
+              and data analysis. 
+            I look forward to making impactful contributions to the tech world!
+          </motion.p>
+        </motion.section>
+
+        {/* Contact Section */}
+        <motion.section
+          id="contact"
+          variants={container}
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true }}
+          className="flex flex-col items-center justify-center min-h-screen bg-gray-800 text-center px-4 py-12"
         >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+          <motion.h2
+            variants={item}
+            className="text-4xl font-bold text-yellow-400"
+          >
+            Contact Me
+          </motion.h2>
+          <motion.div variants={item} className="mt-6 space-y-4 text-lg">
+            <p className="text-gray-300">
+              <strong>Phone:</strong> +234 906 898 5819
+            </p>
+            <p className="text-gray-300">
+              <strong>Email:</strong> Omoregiejames200@gmail.com
+            </p>
+          </motion.div>
+        </motion.section>
+
+        {/* Assignment Section */}
+        <motion.section
+          id="assignment"
+          variants={container}
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true }}
+          className="flex flex-col items-center justify-center min-h-screen bg-gray-900 text-center px-4 py-12"
+        >
+          <motion.h2 variants={item} className="text-4xl font-bold text-yellow-400">
+            Assignment
+          </motion.h2>
+          <div className="mt-8 max-w-3xl space-y-6 text-left text-gray-300">
+            {[
+              {
+                title: "Machine Learning",
+                content:
+                  "Machine learning enables computers to learn from data and improve performance without explicit programming.",
+              },
+              {
+                title: "Artificial Intelligence (AI)",
+                content:
+                  "AI creates systems capable of tasks requiring human intelligence, like problem-solving and decision-making.",
+              },
+              {
+                title: "Supervised Learning",
+                content:
+                  "Supervised learning trains models using labeled data for prediction or classification.",
+              },
+              {
+                title: "Unsupervised Learning",
+                content:
+                  "Unsupervised learning focuses on discovering patterns in unlabeled data, like clustering or dimensionality reduction.",
+              },
+              {
+                title: "Deep Learning",
+                content:
+                  "Deep learning uses neural networks with multiple layers to solve complex problems.",
+              },
+            ].map(({ title, content }) => (
+              <motion.div key={title} variants={item}>
+                <h3 className="text-2xl font-bold text-yellow-400">{title}</h3>
+                <p>{content}</p>
+              </motion.div>
+            ))}
+          </div>
+        </motion.section>
+      </div>
+
+      {/* Footer */}
+      <motion.footer
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 1, ease: "easeOut" }}
+        className="bg-gradient-to-r from-gray-800 to-blue-800 text-gray-100 text-center py-6"
+      >
+        <p>&copy; 2025 James. Designed with love. All rights reserved.</p>
+      </motion.footer>
     </div>
   );
 }
