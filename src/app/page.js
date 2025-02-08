@@ -41,7 +41,7 @@ export default function Home() {
         <motion.section id="home" className="flex flex-col items-center justify-center min-h-screen bg-gray-900 text-center px-4 py-12">
           <motion.img src="/my-picture.jpg" alt="My Picture" className="w-40 h-40 md:w-64 md:h-64 rounded-full border-4 border-yellow-400 shadow-2xl object-cover"/>
           <motion.h2 className="mt-6 text-4xl font-bold text-yellow-400">Hello, I'm Omoregie James</motion.h2>
-          <p className="mt-4 text-lg text-gray-300 max-w-3xl">Welcome to my portfolio! I am passionate about technology, problem-solving, and innovation.</p>
+          <p className="mt-4 text-lg text-gray-300 max-w-3xl">Welcome to my portfolio! </p>
         </motion.section>
 
         {/* About Me Section */}
